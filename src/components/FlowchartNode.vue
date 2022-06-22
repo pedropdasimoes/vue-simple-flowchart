@@ -11,10 +11,11 @@
     <div class="node-main">
       <div v-text="type" class="node-type"></div>
       
-        <img :src="label" alt="" style="width: 40px;
-    height: 40px;
+        <img :src="label" alt="" style="width: 45px;
+    height: 45px;
     border-radius: 50%;
-    margin-top: 2px;">
+    margin-top: 2px;
+    align-self: center;">
     </div>
     <div class="node-port node-output" 
       @mousedown="outputMouseDown">
@@ -142,6 +143,8 @@ $portSize: 12;
   .node-main {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     .node-type {
       background: $themeColor;
@@ -176,20 +179,23 @@ $portSize: 12;
     bottom: #{-2 + $portSize/-2}px;
   }
   .node-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     right: -6px;
     top: -6px;
-    font-size: 12px;
-    width: 12px;
-    height: 12px;
-    color: $themeColor;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #dc2626;
     cursor: pointer;
     background: white;
-    border: 1px solid $themeColor;
+    border: 1px solid #dc2626;
     border-radius: 100px;
     text-align: center;
     &:hover {
-      background: $themeColor;
+      background: #dc2626;
       color: white;
     }
   }

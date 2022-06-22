@@ -284,6 +284,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .flowchart-container {
+  width: 100%;
   margin: 0;
   background: radial-gradient(#cccccc, white);
   -webkit-background-image: -webkit-repeating-radial-gradient(#cccccc, white);

@@ -10,7 +10,11 @@
     </div>
     <div class="node-main">
       <div v-text="type" class="node-type"></div>
-      <div v-text="label" class="node-label"></div>
+      
+        <img :src="label" alt="" style="width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 4px;">
     </div>
     <div class="node-port node-output" 
       @mousedown="outputMouseDown">
@@ -21,36 +25,36 @@
 
 <script>
 export default {
-  name: 'FlowchartNode',
+  name: "FlowchartNode",
   props: {
     id: {
       type: Number,
       default: 1000,
       validator(val) {
-        return typeof val === 'number'
-      }
+        return typeof val === "number";
+      },
     },
     x: {
       type: Number,
       default: 0,
       validator(val) {
-        return typeof val === 'number'
-      }
-    },    
+        return typeof val === "number";
+      },
+    },
     y: {
       type: Number,
       default: 0,
       validator(val) {
-        return typeof val === 'number'
-      }
+        return typeof val === "number";
+      },
     },
     type: {
       type: String,
-      default: 'Default'
+      default: "Default",
     },
     label: {
       type: String,
-      default: 'input name'
+      default: "input name",
     },
     options: {
       type: Object,
@@ -59,34 +63,36 @@ export default {
           centerX: 1024,
           scale: 1,
           centerY: 140,
-        }
-      }
-    }
+        };
+      },
+    },
   },
   data() {
     return {
       show: {
         delete: false,
-      }
-    }
+      },
+    };
   },
-  mounted() {
-  },
+  mounted() {},
   computed: {
     nodeStyle() {
       return {
-        top: this.options.centerY + this.y * this.options.scale + 'px', // remove: this.options.offsetTop + 
-        left: this.options.centerX + this.x * this.options.scale + 'px', // remove: this.options.offsetLeft + 
+        top: this.options.centerY + this.y * this.options.scale + "px", // remove: this.options.offsetTop +
+        left: this.options.centerX + this.x * this.options.scale + "px", // remove: this.options.offsetLeft +
         transform: `scale(${this.options.scale})`,
-      }
-    }
+      };
+    },
   },
   methods: {
     handleMousedown(e) {
       const target = e.target || e.srcElement;
       // console.log(target);
-      if (target.className.indexOf('node-input') < 0 && target.className.indexOf('node-output') < 0) {
-        this.$emit('nodeSelected', e);
+      if (
+        target.className.indexOf("node-input") < 0 &&
+        target.className.indexOf("node-output") < 0
+      ) {
+        this.$emit("nodeSelected", e);
       }
       e.preventDefault();
     },
@@ -97,23 +103,23 @@ export default {
       this.show.delete = false;
     },
     outputMouseDown(e) {
-      this.$emit('linkingStart')
+      this.$emit("linkingStart");
       e.preventDefault();
     },
     inputMouseDown(e) {
       e.preventDefault();
     },
     inputMouseUp(e) {
-      this.$emit('linkingStop')
+      this.$emit("linkingStop");
       e.preventDefault();
     },
-  }
-}
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$themeColor: rgb(255, 136, 85);
+$themeColor: #6eb6fd;
 $portSize: 12;
 
 .flowchart-node {
@@ -123,9 +129,10 @@ $portSize: 12;
   position: absolute;
   box-sizing: border-box;
   border: none;
+  border-radius: 5px;
   background: white;
   z-index: 1;
-  opacity: .9;
+  opacity: 0.9;
   cursor: move;
   transform-origin: top left;
   .node-main {
@@ -135,6 +142,8 @@ $portSize: 12;
       color: white;
       font-size: 13px;
       padding: 6px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
     .node-label {
       font-size: 13px;
@@ -155,10 +164,10 @@ $portSize: 12;
     }
   }
   .node-input {
-    top: #{-2+$portSize/-2}px;
+    top: #{-2 + $portSize/-2}px;
   }
   .node-output {
-    bottom: #{-2+$portSize/-2}px;
+    bottom: #{-2 + $portSize/-2}px;
   }
   .node-delete {
     position: absolute;
@@ -173,7 +182,7 @@ $portSize: 12;
     border: 1px solid $themeColor;
     border-radius: 100px;
     text-align: center;
-    &:hover{
+    &:hover {
       background: $themeColor;
       color: white;
     }

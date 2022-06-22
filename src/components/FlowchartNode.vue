@@ -11,10 +11,10 @@
     <div class="node-main">
       <div v-text="type" class="node-type"></div>
       
-        <img :src="label" alt="" style="width: 50px;
-    height: 50px;
+        <img :src="label" alt="" style="width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin-top: 4px;">
+    margin-top: 2px;">
     </div>
     <div class="node-port node-output" 
       @mousedown="outputMouseDown">
@@ -123,6 +123,10 @@ $themeColor: #6eb6fd;
 $portSize: 12;
 
 .flowchart-node {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   width: 80px;
   height: 80px;
@@ -136,6 +140,8 @@ $portSize: 12;
   cursor: move;
   transform-origin: top left;
   .node-main {
+    width: 100%;
+    height: 100%;
     text-align: center;
     .node-type {
       background: $themeColor;

@@ -130,7 +130,7 @@ $portSize: 12;
   align-items: center;
   margin: 0;
   width: 80px;
-  height: 80px;
+  height: fit-content;
   position: absolute;
   box-sizing: border-box;
   border: none;

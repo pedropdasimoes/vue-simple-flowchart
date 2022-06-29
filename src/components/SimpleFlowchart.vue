@@ -1,22 +1,27 @@
 <template>
-  <div class="flowchart-container" 
-    @mousemove="handleMove" 
+  <div
+    class="flowchart-container"
+    @mousemove="handleMove"
     @mouseup="handleUp"
-    @mousedown="handleDown">
+    @mousedown="handleDown"
+  >
     <svg width="100%" :height="`${height}px`">
-      <flowchart-link v-bind.sync="link" 
-        v-for="(link, index) in lines" 
+      <flowchart-link
+        v-bind.sync="link"
+        v-for="(link, index) in lines"
         :key="`link${index}`"
-        @deleteLink="linkDelete(link.id)">
-      </flowchart-link>
+        @deleteLink="linkDelete(link.id)"
+      ></flowchart-link>
     </svg>
-    <flowchart-node v-bind.sync="node" 
-      v-for="(node, index) in scene.nodes" 
+    <flowchart-node
+      v-bind.sync="node"
+      v-for="(node, index) in scene.nodes"
       :key="`node${index}`"
       :options="nodeOptions"
       @linkingStart="linkingStart(node.id)"
       @linkingStop="linkingStop(node.id)"
-      @nodeSelected="nodeSelected(node.id, $event)">
+      @nodeSelected="nodeSelected(node.id, $event)"
+    >
     </flowchart-node>
   </div>
 </template>
@@ -286,10 +291,10 @@ export default {
 .flowchart-container {
   width: 100%;
   margin: 0;
-  background: radial-gradient(#cccccc, white);
-  -webkit-background-image: -webkit-repeating-radial-gradient(#cccccc, white);
-  -moz-background-image: -moz-radial-gradient(#cccccc, white);
-  -o-background-image: -o-radial-gradient(#cccccc, white);
+  background: radial-gradient(#8dc3f9, white);
+  -webkit-background-image: -webkit-repeating-radial-gradient(#8dc3f9, white);
+  -moz-background-image: -moz-radial-gradient(#8dc3f9, white);
+  -o-background-image: -o-radial-gradient(#8dc3f9, white);
   background-size: 5px 5px;
   -webkit-background-size: 4px 4px;
   -moz-background-size: 4px 4px;

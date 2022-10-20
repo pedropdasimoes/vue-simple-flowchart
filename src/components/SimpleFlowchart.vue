@@ -14,7 +14,7 @@
       align-items: center;
       margin: 10px 0px;">
         <!-- <button @click="diminui">-</button> -->
-        <button @click="diminui" class="button esquerda">
+        <button @click="diminui" class="button esquerda" type="button">
           -
         </button>
         <span style="
@@ -22,7 +22,7 @@
                 border-top: 1px solid #ccc;
                 border-bottom: 1px solid #ccc;
         ">{{scale}}</span>
-        <button @click="aumenta" class="button direita">+</button>
+        <button @click="aumenta" class="button direita" type="button">+</button>
       </div>
     </div>
     <div class="flowchart-container" @mousemove="handleMove" @mouseup="handleUp" @mousedown="handleDown">

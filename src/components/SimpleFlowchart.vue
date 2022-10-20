@@ -1,28 +1,43 @@
 <template>
-  <div
-    class="flowchart-container"
-    @mousemove="handleMove"
-    @mouseup="handleUp"
-    @mousedown="handleDown"
-  >
-    <svg width="100%" :height="`${height}px`">
-      <flowchart-link
-        v-bind.sync="link"
-        v-for="(link, index) in lines"
-        :key="`link${index}`"
-        @deleteLink="linkDelete(link.id)"
-      ></flowchart-link>
-    </svg>
-    <flowchart-node
-      v-bind.sync="node"
-      v-for="(node, index) in scene.nodes"
-      :key="`node${index}`"
-      :options="nodeOptions"
-      @linkingStart="linkingStart(node.id)"
-      @linkingStop="linkingStop(node.id)"
-      @nodeSelected="nodeSelected(node.id, $event)"
-    >
-    </flowchart-node>
+  <div>
+    <div
+    style="display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    height: fit-content">
+      <h3 style="margin:0px;">Escala</h3>
+      <div style="
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0px;">
+        <!-- <button @click="diminui">-</button> -->
+        <button @click="diminui" class="button esquerda">
+          -
+        </button>
+        <span style="
+                padding: 0.12rem 0.5rem;
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+        ">{{scale}}</span>
+        <button @click="aumenta" class="button direita">+</button>
+      </div>
+    </div>
+    <div class="flowchart-container" @mousemove="handleMove" @mouseup="handleUp" @mousedown="handleDown">
+      <div
+        v-bind:style="{ transform: 'scale('+ scale + ')', marginLeft: marginLeftStyle, marginTop: marginTopStyle, height:'5000px', width:'5000px' }">
+        <svg width="100%" :height="`4000px`">
+          <flowchart-link v-bind.sync="link" v-for="(link, index) in lines" :key="`link${index}`"
+            @deleteLink="linkDelete(link.id)"></flowchart-link>
+        </svg>
+        <flowchart-node v-bind.sync="node" v-for="(node, index) in scene.nodes" :key="`node${index}`"
+          :options="nodeOptions" @linkingStart="linkingStart(node.id)" @linkingStop="linkingStop(node.id)"
+          @nodeSelected="nodeSelected(node.id, $event)">
+        </flowchart-node>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,6 +68,9 @@ export default {
   },
   data() {
     return {
+      scale: 1.0,
+      marginLeftStyle: '0%',
+      marginTopStyle: '0%',
       action: {
         linking: false,
         dragging: false,
@@ -125,6 +143,173 @@ export default {
     // console.log(22222, this.rootDivOffset);
   },
   methods: {
+    round(num, places) {
+      if (!("" + num).includes("e")) {
+        return +(Math.round(num + "e+" + places) + "e-" + places);
+      } else {
+        let arr = ("" + num).split("e");
+        let sig = ""
+        if (+arr[1] + places > 0) {
+          sig = "+";
+        }
+
+        return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + places)) + "e-" + places);
+      }
+    },
+    aumenta() {
+      if (this.scale < 1.9) {
+        var number = this.scale + 0.1;
+        number = this.round(number, 1);
+        this.scale = number;
+        switch (number) {
+          case 1.9:
+            this.marginLeftStyle = '2250px';
+            this.marginTopStyle = '2250px';
+            break;
+          case 1.8:
+            this.marginLeftStyle = '2000px';
+            this.marginTopStyle = '2000px';
+            break;
+          case 1.7:
+            this.marginLeftStyle = '1750px';
+            this.marginTopStyle = '1750px';
+            break;
+          case 1.6:
+            this.marginLeftStyle = '1500px';
+            this.marginTopStyle = '1500px';
+            break;
+          case 1.5:
+            this.marginLeftStyle = '1250px';
+            this.marginTopStyle = '1250px';
+            break;
+          case 1.4:
+            this.marginLeftStyle = '1000px';
+            this.marginTopStyle = '1000px';
+            break;
+          case 1.3:
+            this.marginLeftStyle = '750px';
+            this.marginTopStyle = '750px';
+            break;
+          case 1.2:
+            this.marginLeftStyle = '500px';
+            this.marginTopStyle = '500px';
+            break;
+          case 1.1:
+            this.marginLeftStyle = '250px';
+            this.marginTopStyle = '250px';
+            break;
+          case 1.0:
+            this.marginLeftStyle = '0px';
+            this.marginTopStyle = '0px';
+            break;
+          case 0.9:
+            this.marginLeftStyle = '-250px';
+            this.marginTopStyle = '-250px';
+            break;
+          case 0.8:
+            this.marginLeftStyle = '-500px';
+            this.marginTopStyle = '-500px';
+            break;
+          case 0.7:
+            this.marginLeftStyle = '-750px';
+            this.marginTopStyle = '-750px';
+            break;
+          case 0.6:
+            this.marginLeftStyle = '-1000px';
+            this.marginTopStyle = '-1000px';
+            break;
+          case 0.5:
+            this.marginLeftStyle = '-1250px';
+            this.marginTopStyle = '-1250px';
+            break;
+          case 0.4:
+            this.marginLeftStyle = '-1500px';
+            this.marginTopStyle = '-1500px';
+            break;
+          case 0.3:
+            this.marginLeftStyle = '-1750px';
+            this.marginTopStyle = '-1750px';
+            break;
+        }
+      }
+    },
+    diminui() {
+      if (this.scale > 0.3) {
+        var number = this.scale - 0.1;
+        number = this.round(number, 1);
+        this.scale = number;
+        switch (number) {
+          case 1.9:
+            this.marginLeftStyle = '2250px';
+            this.marginTopStyle = '2250px';
+            break;
+          case 1.8:
+            this.marginLeftStyle = '2000px';
+            this.marginTopStyle = '2000px';
+            break;
+          case 1.7:
+            this.marginLeftStyle = '1750px';
+            this.marginTopStyle = '1750px';
+            break;
+          case 1.6:
+            this.marginLeftStyle = '1500px';
+            this.marginTopStyle = '1500px';
+            break;
+          case 1.5:
+            this.marginLeftStyle = '1250px';
+            this.marginTopStyle = '1250px';
+            break;
+          case 1.4:
+            this.marginLeftStyle = '1000px';
+            this.marginTopStyle = '1000px';
+            break;
+          case 1.3:
+            this.marginLeftStyle = '750px';
+            this.marginTopStyle = '750px';
+            break;
+          case 1.2:
+            this.marginLeftStyle = '500px';
+            this.marginTopStyle = '500px';
+            break;
+          case 1.1:
+            this.marginLeftStyle = '250px';
+            this.marginTopStyle = '250px';
+            break;
+          case 1.0:
+            this.marginLeftStyle = '0px';
+            this.marginTopStyle = '0px';
+            break;
+          case 0.9:
+            this.marginLeftStyle = '-250px';
+            this.marginTopStyle = '-250px';
+            break;
+          case 0.8:
+            this.marginLeftStyle = '-500px';
+            this.marginTopStyle = '-500px';
+            break;
+          case 0.7:
+            this.marginLeftStyle = '-750px';
+            this.marginTopStyle = '-750px';
+            break;
+          case 0.6:
+            this.marginLeftStyle = '-1000px';
+            this.marginTopStyle = '-1000px';
+            break;
+          case 0.5:
+            this.marginLeftStyle = '-1250px';
+            this.marginTopStyle = '-1250px';
+            break;
+          case 0.4:
+            this.marginLeftStyle = '-1500px';
+            this.marginTopStyle = '-1500px';
+            break;
+          case 0.3:
+            this.marginLeftStyle = '-1750px';
+            this.marginTopStyle = '-1750px';
+            break;
+        }
+      }
+    },
     findNodeWithID(id) {
       return this.scene.nodes.find((item) => {
         return id === item.id;
@@ -288,6 +473,49 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.button{
+    display: flex;
+    flex-grow: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+    border-width: 1px;
+    padding: 0.5rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgba(255, 255, 255, var(--tw-text-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+    --tw-border-opacity: 1;
+    border-color: rgba(59, 130, 246, var(--tw-border-opacity));
+    height: 1.5rem;
+    line-height: inherit;
+    cursor: pointer;
+    text-transform: none;
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+}
+.button:hover{
+    --tw-text-opacity: 1;
+    color: rgba(29, 78, 216, var(--tw-text-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgba(219, 234, 254, var(--tw-bg-opacity));
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.direita{
+
+  border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.esquerda{
+  
+  border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
 .flowchart-container {
   width: 100%;
   margin: 0;
@@ -301,6 +529,7 @@ export default {
   -o-background-size: 4px 4px;
   position: relative;
   overflow: hidden;
+
   svg {
     cursor: grab;
   }

@@ -489,7 +489,7 @@ export default {
     background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
     --tw-border-opacity: 1;
     border-color: rgba(59, 130, 246, var(--tw-border-opacity));
-    height: 1.5rem;
+    height: 1.88rem;
     line-height: inherit;
     cursor: pointer;
     text-transform: none;

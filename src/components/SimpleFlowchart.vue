@@ -27,7 +27,7 @@
     </div>
     <div class="flowchart-container" @mousemove="handleMove" @mouseup="handleUp" @mousedown="handleDown">
       <div
-        v-bind:style="{ transform: 'scale('+ scale + ')', marginLeft: marginLeftStyle, marginTop: marginTopStyle, height:'5000px', width:'5000px' }">
+        v-bind:style="{ transform: 'scale('+ scale + ')', marginLeft: '0px', marginTop: marginTopStyle, height:'5000px', width:'5000px' }">
         <svg width="100%" :height="`4000px`">
           <flowchart-link v-bind.sync="link" v-for="(link, index) in lines" :key="`link${index}`"
             @deleteLink="linkDelete(link.id)"></flowchart-link>
